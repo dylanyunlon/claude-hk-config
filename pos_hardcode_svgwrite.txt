@@ -1,0 +1,644 @@
+#!/usr/bin/env python3
+"""
+SVG图表生成器 - 生成学术论文中的CL (Contrastive Learning) 对比图
+包含功能性对比学习和优化对比学习的可视化
+"""
+
+import xml.etree.ElementTree as ET
+from typing import List, Tuple, Dict, Optional
+
+class SVGGenerator:
+    """SVG图表生成器"""
+    
+    def __init__(self, width: int = 1200, height: int = 400):
+        self.width = width
+        self.height = height
+        self.svg_ns = "http://www.w3.org/2000/svg"
+        
+        # 学术色彩调色板 - 基于seaborn的专业配色
+        self.colors = {
+            'gray_light': '#cccccc',
+            'gray_medium': '#666666', 
+            'gray_dark': '#333333',
+            'node_gray': '#cccccc',
+            'node_dark': '#666666',
+            'text_black': '#000000',
+            'stroke_black': '#000000',
+            'matrix_light': '#f5f5dc',  # 浅米色
+            'functionality_blue': '#4a4a9f',  # 功能性蓝色
+            'functionality_purple': '#7b68aa',  # 功能性紫色  
+            'functionality_gold': '#d4af82',   # 功能性金色
+            'optimization_dark_blue': '#1e4d72',  # 优化深蓝
+            'optimization_blue': '#4682b4',       # 优化蓝色
+            'optimization_light_blue': '#b3d9ff', # 优化浅蓝
+            'optimization_medium_blue': '#7bb3d9' # 优化中蓝
+        }
+        
+    def create_svg_root(self) -> ET.Element:
+        """创建SVG根元素"""
+        svg = ET.Element('svg')
+        svg.set('xmlns', self.svg_ns)
+        svg.set('width', str(self.width))
+        svg.set('height', str(self.height))
+        return svg
+        
+    def add_defs(self, svg: ET.Element) -> ET.Element:
+        """添加定义部分：样式、箭头标记和渐变"""
+        defs = ET.SubElement(svg, 'defs')
+        
+        # 样式定义
+        style = ET.SubElement(defs, 'style')
+        style.text = f"""
+        .node-gray {{ fill: {self.colors['node_gray']}; stroke: {self.colors['gray_medium']}; stroke-width: 2; }}
+        .node-dark {{ fill: {self.colors['node_dark']}; stroke: {self.colors['gray_dark']}; stroke-width: 2; }}
+        .edge {{ stroke: {self.colors['gray_dark']}; stroke-width: 2; fill: none; }}
+        .connection-line {{ stroke: {self.colors['gray_dark']}; stroke-width: 1.5; fill: none; }}
+        .dashed-circle {{ fill: none; stroke: {self.colors['gray_medium']}; stroke-width: 2; stroke-dasharray: 5,5; }}
+        .text-label {{ font-family: Arial, sans-serif; font-size: 14px; fill: {self.colors['text_black']}; font-weight: bold; }}
+        .text-normal {{ font-family: Arial, sans-serif; font-size: 11px; fill: {self.colors['text_black']}; }}
+        .text-small {{ font-family: Arial, sans-serif; font-size: 10px; fill: {self.colors['text_black']}; }}
+        .matrix-cell {{ stroke: {self.colors['stroke_black']}; stroke-width: 0.5; }}
+        .box {{ fill: none; stroke: {self.colors['stroke_black']}; stroke-width: 1; }}
+        """
+        
+        # 箭头标记
+        marker = ET.SubElement(defs, 'marker')
+        marker.set('id', 'arrowhead')
+        marker.set('markerWidth', '10')
+        marker.set('markerHeight', '7')
+        marker.set('refX', '9')
+        marker.set('refY', '3.5')
+        marker.set('orient', 'auto')
+        
+        arrow_polygon = ET.SubElement(marker, 'polygon')
+        arrow_polygon.set('points', '0 0, 10 3.5, 0 7')
+        arrow_polygon.set('fill', self.colors['gray_dark'])
+        
+        # 功能性渐变
+        grad_func = ET.SubElement(defs, 'linearGradient')
+        grad_func.set('id', 'gradient_functionality')
+        grad_func.set('x1', '0%')
+        grad_func.set('y1', '0%')
+        grad_func.set('x2', '0%')
+        grad_func.set('y2', '100%')
+        
+        stop1 = ET.SubElement(grad_func, 'stop')
+        stop1.set('offset', '0%')
+        stop1.set('style', f'stop-color:{self.colors["functionality_blue"]};stop-opacity:1')
+        
+        stop2 = ET.SubElement(grad_func, 'stop')
+        stop2.set('offset', '50%')
+        stop2.set('style', f'stop-color:{self.colors["functionality_purple"]};stop-opacity:1')
+        
+        stop3 = ET.SubElement(grad_func, 'stop')
+        stop3.set('offset', '100%')
+        stop3.set('style', f'stop-color:{self.colors["functionality_gold"]};stop-opacity:1')
+        
+        # 优化渐变
+        grad_opt = ET.SubElement(defs, 'linearGradient')
+        grad_opt.set('id', 'gradient_optimization')
+        grad_opt.set('x1', '0%')
+        grad_opt.set('y1', '0%')
+        grad_opt.set('x2', '0%')
+        grad_opt.set('y2', '100%')
+        
+        stop1_opt = ET.SubElement(grad_opt, 'stop')
+        stop1_opt.set('offset', '0%')
+        stop1_opt.set('style', f'stop-color:{self.colors["optimization_dark_blue"]};stop-opacity:1')
+        
+        stop2_opt = ET.SubElement(grad_opt, 'stop')
+        stop2_opt.set('offset', '50%')
+        stop2_opt.set('style', f'stop-color:{self.colors["optimization_blue"]};stop-opacity:1')
+        
+        stop3_opt = ET.SubElement(grad_opt, 'stop')
+        stop3_opt.set('offset', '100%')
+        stop3_opt.set('style', f'stop-color:{self.colors["optimization_light_blue"]};stop-opacity:1')
+        
+        return defs
+        
+    def add_subfig_a(self, svg: ET.Element) -> None:
+        """添加子图(a): CL Across Functionalities - 修改为等腰三角形对立布局"""
+        g = ET.SubElement(svg, 'g')
+        g.set('id', 'subfig_a')
+        
+        # 标题
+        title = ET.SubElement(g, 'text')
+        title.set('x', '20')
+        title.set('y', '30')
+        title.set('class', 'text-label')
+        title.text = '(a) CL Across Functionalities'
+        
+        # 左侧圆圈
+        left_circle = ET.SubElement(g, 'circle')
+        left_circle.set('cx', '80')
+        left_circle.set('cy', '120')
+        left_circle.set('r', '45')
+        left_circle.set('class', 'dashed-circle')
+        
+        # 左侧等腰三角形 - 顶点指向右侧（对抗右侧圆圈）
+        # 左边底边两个节点
+        left_node1 = ET.SubElement(g, 'circle')
+        left_node1.set('cx', '65')
+        left_node1.set('cy', '105')
+        left_node1.set('r', '7')
+        left_node1.set('class', 'node-gray')
+        
+        left_node2 = ET.SubElement(g, 'circle')
+        left_node2.set('cx', '65')
+        left_node2.set('cy', '135')
+        left_node2.set('r', '7')
+        left_node2.set('class', 'node-gray')
+        
+        # 右边顶点（指向对方）
+        left_node3 = ET.SubElement(g, 'circle')
+        left_node3.set('cx', '95')
+        left_node3.set('cy', '120')
+        left_node3.set('r', '7')
+        left_node3.set('class', 'node-dark')
+        
+        # 左侧三角形连接线
+        left_line1 = ET.SubElement(g, 'line')
+        left_line1.set('x1', '65')
+        left_line1.set('y1', '105')
+        left_line1.set('x2', '65')
+        left_line1.set('y2', '135')
+        left_line1.set('class', 'edge')
+        
+        left_line2 = ET.SubElement(g, 'line')
+        left_line2.set('x1', '65')
+        left_line2.set('y1', '105')
+        left_line2.set('x2', '95')
+        left_line2.set('y2', '120')
+        left_line2.set('class', 'edge')
+        
+        left_line3 = ET.SubElement(g, 'line')
+        left_line3.set('x1', '65')
+        left_line3.set('y1', '135')
+        left_line3.set('x2', '95')
+        left_line3.set('y2', '120')
+        left_line3.set('class', 'edge')
+        
+        # 箭头
+        arrow = ET.SubElement(g, 'path')
+        arrow.set('d', 'M 130 120 Q 160 100 190 120')
+        arrow.set('fill', 'none')
+        arrow.set('stroke', self.colors['gray_dark'])
+        arrow.set('stroke-width', '2')
+        arrow.set('marker-end', 'url(#arrowhead)')
+        
+        # 右侧圆圈
+        right_circle = ET.SubElement(g, 'circle')
+        right_circle.set('cx', '240')
+        right_circle.set('cy', '120')
+        right_circle.set('r', '45')
+        right_circle.set('class', 'dashed-circle')
+        
+        # 右侧等腰三角形 - 顶点指向左侧（对抗左侧圆圈）
+        # 右边底边两个节点
+        right_node1 = ET.SubElement(g, 'circle')
+        right_node1.set('cx', '255')
+        right_node1.set('cy', '105')
+        right_node1.set('r', '7')
+        right_node1.set('class', 'node-gray')
+        
+        right_node2 = ET.SubElement(g, 'circle')
+        right_node2.set('cx', '255')
+        right_node2.set('cy', '135')
+        right_node2.set('r', '7')
+        right_node2.set('class', 'node-gray')
+        
+        # 左边顶点（指向对方）
+        right_node3 = ET.SubElement(g, 'circle')
+        right_node3.set('cx', '225')
+        right_node3.set('cy', '120')
+        right_node3.set('r', '7')
+        right_node3.set('class', 'node-gray')
+        
+        # 右侧三角形连接线
+        right_line1 = ET.SubElement(g, 'line')
+        right_line1.set('x1', '255')
+        right_line1.set('y1', '105')
+        right_line1.set('x2', '255')
+        right_line1.set('y2', '135')
+        right_line1.set('class', 'edge')
+        
+        right_line2 = ET.SubElement(g, 'line')
+        right_line2.set('x1', '255')
+        right_line2.set('y1', '105')
+        right_line2.set('x2', '225')
+        right_line2.set('y2', '120')
+        right_line2.set('class', 'edge')
+        
+        right_line3 = ET.SubElement(g, 'line')
+        right_line3.set('x1', '255')
+        right_line3.set('y1', '135')
+        right_line3.set('x2', '225')
+        right_line3.set('y2', '120')
+        right_line3.set('class', 'edge')
+        
+        # 标签文本
+        self._add_text(g, '45', '170', 'src', 'text-small')
+        self._add_text(g, '60', '185', 'cmp', 'text-small')
+        self._add_text(g, '30', '200', 'd(e_cmp, e_cmp)', 'text-small')
+        self._add_text(g, '205', '170', 'src', 'text-small')
+        self._add_text(g, '220', '185', 'sort', 'text-small')
+        self._add_text(g, '180', '200', 'd(e_cmp, e_sort)', 'text-small')
+        self._add_text(g, '180', '215', 'd(e_sort, e_sort)', 'text-small')
+        
+    def add_subfig_b(self, svg: ET.Element) -> None:
+        """添加子图(b): Design of Functionality CL - 修改版本"""
+        g = ET.SubElement(svg, 'g')
+        g.set('id', 'subfig_b')
+        
+        # 标题
+        title = ET.SubElement(g, 'text')
+        title.set('x', '320')
+        title.set('y', '30')
+        title.set('class', 'text-label')
+        title.text = '(b) Design of Functionality CL'
+        
+        # "compile & disassemble" 文本（无边框，位置在func₁正上方）
+        self._add_text(g, '405', '85', 'compile & disassemble', 'text-small')
+        
+        # 汇编输出
+        self._add_text(g, '520', '95', 'O0₁ O0₂ O0₃ O0₄', 'text-small')
+        
+        # 函数标签 - 调整y坐标以对应矩阵左边四个方格的中央
+        self._add_text(g, '405', '112', 'func₁ <cmp> → src₁', 'text-small')
+        self._add_text(g, '405', '130', 'func₂ <sort> → src₂', 'text-small')
+        self._add_text(g, '405', '148', 'func₃ <min> → src₃', 'text-small')
+        self._add_text(g, '405', '166', 'func₄ <max> → src₄', 'text-small')
+        
+        # "different functions" 在func₄下方
+        self._add_text(g, '405', '185', 'different functions', 'text-small')
+        
+        # 距离矩阵（位置保持不变）
+        matrix_colors = [
+            [self.colors['matrix_light'], self.colors['functionality_blue'], 
+             self.colors['functionality_blue'], self.colors['functionality_blue']],
+            [self.colors['functionality_blue'], self.colors['matrix_light'], 
+             self.colors['functionality_blue'], self.colors['functionality_blue']],
+            [self.colors['functionality_blue'], self.colors['functionality_blue'], 
+             self.colors['matrix_light'], self.colors['functionality_blue']],
+            [self.colors['functionality_blue'], self.colors['functionality_blue'], 
+             self.colors['functionality_blue'], self.colors['functionality_gold']]
+        ]
+        
+        for i in range(4):
+            for j in range(4):
+                rect = ET.SubElement(g, 'rect')
+                rect.set('x', str(520 + j * 18))
+                rect.set('y', str(103 + i * 18))  # 调整y坐标以适应新布局
+                rect.set('width', '18')
+                rect.set('height', '18')
+                rect.set('fill', matrix_colors[i][j])
+                rect.set('class', 'matrix-cell')
+        
+        # 说明文本
+        self._add_text(g, '520', '210', 'distance matrix D', 'text-small')
+        
+        # 渐变条
+        gradient_bar = ET.SubElement(g, 'rect')
+        gradient_bar.set('x', '595')
+        gradient_bar.set('y', '103')  # 调整y坐标
+        gradient_bar.set('width', '12')
+        gradient_bar.set('height', '72')
+        gradient_bar.set('fill', 'url(#gradient_functionality)')
+        
+        self._add_text(g, '615', '115', 'different', 'text-small')
+        self._add_text(g, '615', '165', 'similar', 'text-small')
+        
+        # 添加连接线
+        self._add_connection_lines(g)
+        
+    def _add_connection_lines(self, g: ET.Element) -> None:
+        """添加从func到O0位置的连接线"""
+        # 计算关键坐标
+        func_x = 405  # func文本的x坐标 (更新后的位置)
+        compile_y = 85  # compile & disassemble的y坐标
+        
+        # 矩阵位置和O0位置
+        matrix_start_x = 520
+        matrix_start_y = 103
+        
+        # O0位置（每个格子中心）- 往下移动10个单位
+        o0_positions = [
+            (matrix_start_x + 9, matrix_start_y - 8),   # O0₁
+            (matrix_start_x + 27, matrix_start_y - 8),  # O0₂  
+            (matrix_start_x + 45, matrix_start_y - 8),  # O0₃
+            (matrix_start_x + 63, matrix_start_y - 8)   # O0₄
+        ]
+        
+        # func位置 - 更新为对应矩阵左边四个方格的中央
+        func_positions = [
+            (func_x, 112),  # func₁
+            (func_x, 130),  # func₂
+            (func_x, 148),  # func₃
+            (func_x, 166)   # func₄
+        ]
+        
+        # 为每个func添加连接线
+        for i, (func_pos, o0_pos) in enumerate(zip(func_positions, o0_positions)):
+            func_x, func_y = func_pos
+            o0_x, o0_y = o0_pos
+            
+            # 计算左边线的x坐标（递减以避免重叠）
+            left_x = func_x - 20 - (i * 8)
+            
+            # 计算上边线的y坐标（递减以避免重叠）
+            up_y = compile_y - 5 - (i * 3)
+            
+            # 连接线路径：
+            # 1. 从func左边水平向左
+            line1 = ET.SubElement(g, 'line')
+            line1.set('x1', str(func_x))
+            line1.set('y1', str(func_y))
+            line1.set('x2', str(left_x))
+            line1.set('y2', str(func_y))
+            line1.set('class', 'connection-line')
+            
+            # 2. 垂直向上
+            line2 = ET.SubElement(g, 'line')
+            line2.set('x1', str(left_x))
+            line2.set('y1', str(func_y))
+            line2.set('x2', str(left_x))
+            line2.set('y2', str(up_y))
+            line2.set('class', 'connection-line')
+            
+            # 3. 水平向右到O0位置
+            line3 = ET.SubElement(g, 'line')
+            line3.set('x1', str(left_x))
+            line3.set('y1', str(up_y))
+            line3.set('x2', str(o0_x))
+            line3.set('y2', str(up_y))
+            line3.set('class', 'connection-line')
+            
+            # 4. 垂直向下到O0
+            line4 = ET.SubElement(g, 'line')
+            line4.set('x1', str(o0_x))
+            line4.set('y1', str(up_y))
+            line4.set('x2', str(o0_x))
+            line4.set('y2', str(o0_y))
+            line4.set('class', 'connection-line')
+        
+    def add_subfig_c(self, svg: ET.Element) -> None:
+        """添加子图(c): CL Across Optimizations - 修改为5个圆形布局"""
+        g = ET.SubElement(svg, 'g')
+        g.set('id', 'subfig_c')
+        
+        # 标题
+        title = ET.SubElement(g, 'text')
+        title.set('x', '680')
+        title.set('y', '30')
+        title.set('class', 'text-label')
+        title.text = '''(c) CL Across Optimizations'''
+        
+        # 定义5个圆形的位置和标签
+        circles = [
+            {'cx': 690, 'cy': 155, 'label': 'src', 'label_x': 675, 'label_y': 172},        # 左下角
+            {'cx': 710, 'cy': 95, 'label': 'O0 asm', 'label_x': 690, 'label_y': 87},      # 上半部分
+            {'cx': 720, 'cy': 145, 'label': 'O1 asm', 'label_x': 700, 'label_y': 162},    # 下半部分偏下
+            {'cx': 750, 'cy': 135, 'label': 'O2 asm', 'label_x': 755, 'label_y': 152},    # 下半部分偏右
+            {'cx': 760, 'cy': 85, 'label': 'O3 asm', 'label_x': 765, 'label_y': 77}       # 右上角
+        ]
+        
+        # 绘制5个圆形
+        for i, circle in enumerate(circles):
+            # 绘制圆形
+            circle_elem = ET.SubElement(g, 'circle')
+            circle_elem.set('cx', str(circle['cx']))
+            circle_elem.set('cy', str(circle['cy']))
+            circle_elem.set('r', '8')
+            
+            # src圆形使用深色，其他使用浅色
+            if circle['label'] == 'src':
+                circle_elem.set('class', 'node-dark')
+            else:
+                circle_elem.set('class', 'node-gray')
+            
+            # 添加标签
+            self._add_text(g, str(circle['label_x']), str(circle['label_y']), 
+                          circle['label'], 'text-small')
+        
+        # 添加一些连接线来显示关系（可选）
+        # 从src到各个优化级别的连接线
+        src_x, src_y = 690, 155
+        optimization_circles = circles[1:]  # 除了src之外的其他圆形
+        
+        for opt_circle in optimization_circles:
+            line = ET.SubElement(g, 'line')
+            line.set('x1', str(src_x))
+            line.set('y1', str(src_y))
+            line.set('x2', str(opt_circle['cx']))
+            line.set('y2', str(opt_circle['cy']))
+            line.set('stroke', self.colors['gray_medium'])
+            line.set('stroke-width', '1')
+            line.set('stroke-dasharray', '3,3')
+        
+    def add_subfig_d(self, svg: ET.Element) -> None:
+        """添加子图(d): Design of Optimization CL - 修正为上三角矩阵"""
+        g = ET.SubElement(svg, 'g')
+        g.set('id', 'subfig_d')
+        
+        # 标题
+        title = ET.SubElement(g, 'text')
+        title.set('x', '870')
+        title.set('y', '30')
+        title.set('class', 'text-label')
+        title.text = '(d) Design of Optimization CL'
+        
+        # 头部标签 - O0, O1, O2, O3的位置
+        header_y = 80  # 往下移动15个像素
+        header_positions = [965, 983, 1001, 1019]
+        headers = ['O0', 'O1', 'O2', 'O3']
+        
+        for i, (x_pos, header) in enumerate(zip(header_positions, headers)):
+            self._add_text(g, str(x_pos), str(header_y), header, 'text-small')
+        
+        # func <cmp> 文本 - 在O0,O1,O2,O3的正上方（无边框）
+        func_center_x = sum(header_positions) // len(header_positions)  # 992
+        func_text_y = 55
+        
+        self._add_text(g, str(func_center_x), str(func_text_y), 'func <cmp>', 'text-small', 'middle')
+        
+        # src 标签位置
+        src_x = 875
+        src_y = 103  # 往下移动15个像素
+        self._add_text(g, str(src_x), str(src_y), 'src', 'text-small')
+        
+        # 其他行标签
+        self._add_text(g, '875', '118', 'O0', 'text-small')  # 往下移动15个像素
+        self._add_text(g, '875', '133', 'O1', 'text-small')  # 往下移动15个像素
+        
+        # 连接线1: 从func <cmp>往左到src正上方，再往下到src
+        func_text_bottom = func_text_y + 5  # 文本下方5个像素
+        
+        # 水平线：从func <cmp>左边到src正上方
+        line1 = ET.SubElement(g, 'line')
+        line1.set('x1', str(func_center_x - 35))  # func文本左边35个像素
+        line1.set('y1', str(func_text_bottom))
+        line1.set('x2', str(src_x))  # src的x坐标
+        line1.set('y2', str(func_text_bottom))
+        line1.set('class', 'connection-line')
+        
+        # 垂直线：从src正上方往下到src
+        line2 = ET.SubElement(g, 'line')
+        line2.set('x1', str(src_x))
+        line2.set('y1', str(func_text_bottom))
+        line2.set('x2', str(src_x))
+        line2.set('y2', str(src_y))
+        line2.set('class', 'connection-line')
+        
+        # 连接线2: 从func <cmp>往下到一半，然后分裂成四根到O0,O1,O2,O3
+        split_y = func_text_y + 15  # 分裂点
+        
+        # 主干线：从func中心往下到分裂点
+        main_line = ET.SubElement(g, 'line')
+        main_line.set('x1', str(func_center_x))
+        main_line.set('y1', str(func_text_bottom))
+        main_line.set('x2', str(func_center_x))
+        main_line.set('y2', str(split_y))
+        main_line.set('class', 'connection-line')
+        
+        # 分支线：从分裂点到各个头部标签
+        for header_x in header_positions:
+            # 水平线：从主干到各个O位置
+            branch_line_h = ET.SubElement(g, 'line')
+            branch_line_h.set('x1', str(func_center_x))
+            branch_line_h.set('y1', str(split_y))
+            branch_line_h.set('x2', str(header_x))
+            branch_line_h.set('y2', str(split_y))
+            branch_line_h.set('class', 'connection-line')
+            
+            # 垂直线：从水平分支线到头部标签
+            branch_line_v = ET.SubElement(g, 'line')
+            branch_line_v.set('x1', str(header_x))
+            branch_line_v.set('y1', str(split_y))
+            branch_line_v.set('x2', str(header_x))
+            branch_line_v.set('y2', str(header_y))
+            branch_line_v.set('class', 'connection-line')
+        
+        # 定义上三角矩阵的颜色 - 每行递进的优化颜色
+        matrix_start_x = 955
+        matrix_start_y = 95  # 往下移动15个像素
+        cell_width = 18
+        cell_height = 15
+        
+        matrix_layout = [
+            # src行: O0, O1, O2, O3 (4个方块)
+            [(0, 0, self.colors['optimization_light_blue']), 
+             (0, 1, self.colors['optimization_medium_blue']),
+             (0, 2, self.colors['optimization_blue']), 
+             (0, 3, self.colors['optimization_dark_blue'])],
+            # O0行: O1, O2, O3 (3个方块，跳过第0列)
+            [(1, 1, self.colors['optimization_light_blue']), 
+             (1, 2, self.colors['optimization_medium_blue']),
+             (1, 3, self.colors['optimization_blue'])],
+            # O1行: O2, O3 (2个方块，跳过第0,1列)
+            [(2, 2, self.colors['optimization_light_blue']), 
+             (2, 3, self.colors['optimization_medium_blue'])]
+        ]
+        
+        # 绘制上三角矩阵
+        for row_data in matrix_layout:
+            for row_idx, col_idx, color in row_data:
+                rect = ET.SubElement(g, 'rect')
+                rect.set('x', str(matrix_start_x + col_idx * cell_width))
+                rect.set('y', str(matrix_start_y + row_idx * cell_height))
+                rect.set('width', str(cell_width))
+                rect.set('height', str(cell_height))
+                rect.set('fill', color)
+                rect.set('class', 'matrix-cell')
+        
+        # 在方块与方块之间添加"≤"符号
+        # 第一行（src行）：在O0和O1之间，O1和O2之间，O2和O3之间
+        for col_idx in range(3):  # 0,1,2
+            le_x = matrix_start_x + col_idx * cell_width + cell_width + 4
+            le_y = matrix_start_y + 10
+            self._add_text(g, str(le_x), str(le_y), '≤', 'text-small', 'middle')
+        
+        # 第二行（O0行）：在O1和O2之间，O2和O3之间
+        for col_idx in range(1, 3):  # 1,2
+            le_x = matrix_start_x + col_idx * cell_width + cell_width + 4
+            le_y = matrix_start_y + cell_height + 10
+            self._add_text(g, str(le_x), str(le_y), '≤', 'text-small', 'middle')
+        
+        # 第三行（O1行）：在O2和O3之间
+        le_x = matrix_start_x + 2 * cell_width + cell_width + 4
+        le_y = matrix_start_y + 2 * cell_height + 10
+        self._add_text(g, str(le_x), str(le_y), '≤', 'text-small', 'middle')
+        
+        # distance matrix D - 在O0,O1,O2,O3的正下方（x坐标保持矩阵中心位置）
+        matrix_center_x = matrix_start_x + 2 * cell_width  # 矩阵中心
+        matrix_bottom_y = matrix_start_y + 3 * cell_height + 15  # 矩阵底部下方
+        self._add_text(g, str(matrix_center_x), str(matrix_bottom_y), 'distance matrix D', 'text-small', 'middle')
+        
+        self._add_text(g, '1045', '80', 'different', 'text-small')  # 往下移动15个像素
+        
+        # 渐变条 - 调整位置和大小
+        opt_gradient_bar = ET.SubElement(g, 'rect')
+        opt_gradient_bar.set('x', '1065')
+        opt_gradient_bar.set('y', '95')  # 往下移动15个像素
+        opt_gradient_bar.set('width', '12')
+        opt_gradient_bar.set('height', '45')
+        opt_gradient_bar.set('fill', 'url(#gradient_optimization)')
+        
+        self._add_text(g, '1085', '105', 'different', 'text-small')  # 往下移动15个像素
+        self._add_text(g, '1085', '130', 'similar', 'text-small')    # 往下移动15个像素
+        
+    def _add_text(self, parent: ET.Element, x: str, y: str, text: str, 
+                  css_class: str, anchor: str = None) -> None:
+        """添加文本元素的辅助方法"""
+        text_elem = ET.SubElement(parent, 'text')
+        text_elem.set('x', x)
+        text_elem.set('y', y)
+        text_elem.set('class', css_class)
+        if anchor:
+            text_elem.set('text-anchor', anchor)
+        text_elem.text = text
+        
+    def generate_svg(self) -> str:
+        """生成完整的SVG字符串"""
+        # 创建SVG根元素
+        svg = self.create_svg_root()
+        
+        # 添加定义
+        self.add_defs(svg)
+        
+        # 添加各个子图
+        self.add_subfig_a(svg)
+        self.add_subfig_b(svg)
+        self.add_subfig_c(svg)
+        self.add_subfig_d(svg)
+        
+        # 转换为字符串
+        ET.register_namespace('', self.svg_ns)
+        svg_string = ET.tostring(svg, encoding='unicode', method='xml')
+        
+        # 添加XML声明
+        return '<?xml version="1.0" encoding="UTF-8"?>\n' + svg_string
+        
+    def save_svg(self, filename: str) -> None:
+        """保存SVG到文件"""
+        svg_content = self.generate_svg()
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(svg_content)
+        print(f"SVG已保存到: {filename}")
+
+def main():
+    """主函数"""
+    generator = SVGGenerator()
+    
+    # 生成SVG
+    svg_content = generator.generate_svg()
+    print("SVG内容生成完成！")
+    
+    # 保存到文件
+    generator.save_svg('academic_cl_diagram.svg')
+    
+    # 输出前500个字符预览
+    print("\n生成的SVG预览（前500字符）：")
+    print(svg_content[:500] + "..." if len(svg_content) > 500 else svg_content)
+
+if __name__ == "__main__":
+    main()

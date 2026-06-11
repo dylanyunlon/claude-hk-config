@@ -1,0 +1,120 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.patches as patches
+from matplotlib.colors import ListedColormap
+
+# 设置字体为等宽字体
+plt.rcParams['font.family'] = 'monospace'
+plt.rcParams['font.size'] = 6
+
+def create_l4av_attention_mask():
+    # 定义矩阵大小
+    matrix_size = 28
+    
+    # 定义颜色
+    colors = {
+        'purple_bg': [72/255, 61/255, 139/255],      # 紫色背景 - 无注意力
+        'yellow_attention': [1.0, 1.0, 102/255],     # 黄色 - intra-instruction attention
+        'light_green': [144/255, 238/255, 144/255],  # 浅绿色 - preceding-instruction attention
+        'dark_green': [34/255, 139/255, 34/255],     # 深绿色 - inter-instruction attention
+    }
+    
+    # 初始化注意力掩码矩阵
+    attention_mask = np.zeros((matrix_size, matrix_size, 3))
+    attention_mask[:, :] = colors['purple_bg']  # 默认紫色背景
+    
+    # 定义指令边界位置（基于代码中的标记）
+    # 根据tokenizer的encode逻辑，[INST-X]标记位于每个指令的末尾
+    inst_boundaries = [6, 13, 20, 27]  # [INST-1], [INST-2], [INST-3], [INST-4]的位置
+    inst_starts = [0, 7, 14, 21]       # 每个指令的开始位置
+    
+    # 1. Intra-instruction attention (黄色) - 每个指令内部的因果注意力
+    # 根据modeling_l4av.py中的逻辑：np.tril(np.ones((len(text_ids), len(text_ids))))
+    for idx, boundary in enumerate(inst_boundaries):
+        start_pos = inst_starts[idx]
+        # 在每个指令内部形成下三角形（包括对角线）
+        for i in range(start_pos, boundary + 1):
+            for j in range(start_pos, boundary + 1):
+                if i >= j:  # 下三角形（包括对角线）
+                    attention_mask[i, j] = colors['yellow_attention']
+    
+    # 2. Preceding-instruction attention (浅绿色)
+    # 根据modeling_l4av.py中的逻辑：
+    # if cur_len + sub_cur_len - 1 >= 0:
+    #     attention_mask[cur_len + sub_cur_len: cur_len + sub_cur_len + len(sub_text_ids), cur_len + sub_cur_len - 1] = 1
+    # 这表示当前指令可以注意到前一个指令的最后一个token（即[INST-X]）
+    for idx in range(1, len(inst_boundaries)):  # 从第二个指令开始
+        current_start = inst_starts[idx]
+        current_boundary = inst_boundaries[idx]
+        prev_boundary = inst_boundaries[idx - 1]  # 前一个指令的[INST-X]位置
+        
+        # 当前指令的所有token都可以注意到前一个指令的[INST-X]位置
+        for i in range(current_start, current_boundary + 1):
+            attention_mask[i, prev_boundary] = colors['light_green']
+    
+    # 3. Inter-instruction attention (深绿色)
+    # 根据modeling_l4av.py中的逻辑：
+    # if len(no_mask_idx) > 0:
+    #     attention_mask[cur_len + sub_cur_len + len(sub_text_ids) - 1, np.array(no_mask_idx)] = 1
+    # no_mask_idx += [cur_len + sub_cur_len + len(sub_text_ids) - 1]
+    # 这表示[INST-X]位置可以注意到之前所有的[INST-Y]位置（不包括自己）
+    for current_inst in range(len(inst_boundaries)):
+        current_boundary = inst_boundaries[current_inst]
+        # 当前[INST-X]可以注意到之前所有的[INST-Y]（不包括自己）
+        for prev_inst in range(current_inst):
+            prev_boundary = inst_boundaries[prev_inst]
+            attention_mask[current_boundary, prev_boundary] = colors['dark_green']
+    
+    return attention_mask
+
+def plot_attention_mask():
+    # 创建注意力掩码
+    mask = create_l4av_attention_mask()
+    
+    # 创建图形
+    fig, ax = plt.subplots(1, 1, figsize=(12, 10))
+    
+    # 显示注意力掩码
+    ax.imshow(mask, aspect='equal', origin='upper')
+    
+    # 添加网格线
+    for i in range(29):
+        ax.axhline(i - 0.5, color='white', linewidth=0.3)
+        ax.axvline(i - 0.5, color='white', linewidth=0.3)
+    
+    # 定义token标签
+    tokens = [
+        'mov', 'e', 'ax', ',', '$', '1', '[INST-1]',
+        'mov', 'e', 'bx', ',', '$', '2', '[INST-2]',
+        'mov', 'ec', 'x', ',', 'e', 'ax', '[INST-3]',
+        'add', 'ec', 'x', ',', 'e', 'bx', '[INST-4]'
+    ]
+    
+    # 设置坐标轴标签
+    ax.set_xticks(range(28))
+    ax.set_yticks(range(28))
+    
+    # 将x轴标签移到顶部
+    ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top')
+    
+    ax.set_xticklabels(tokens, rotation=90, ha='center', fontsize=18)
+    ax.set_yticklabels(tokens, fontsize=18)
+    
+    plt.tight_layout()
+    return fig
+
+# 定义颜色字典用于图例
+colors = {
+    'purple_bg': [72/255, 61/255, 139/255],
+    'yellow_attention': [1.0, 1.0, 102/255],
+    'light_green': [144/255, 238/255, 144/255],
+    'dark_green': [34/255, 139/255, 34/255],
+}
+
+# 生成并显示图形
+fig = plot_attention_mask()
+# plt.show()
+
+# 如果需要保存图片
+plt.savefig('l4av_attention_mask.png', dpi=300, bbox_inches='tight')
