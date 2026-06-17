@@ -1,0 +1,5 @@
+# Pinned org UUID for claude.hk.cn dispatch.
+# WHY: claude_hk_chat.sh previously took orgs[0] from /api/organizations,
+# which is unstable under concurrent access. Pin it so every dispatcher
+# (and every sub-Claude) lands in the SAME org. This account has exactly one org.
+71fc6ec9-4935-4480-8f97-d543acc180b0
