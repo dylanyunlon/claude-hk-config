@@ -1,3 +1,3 @@
 # Pinned org UUID for claude.hk.cn dispatch.
-# Updated 2026-06-23T07:14:57Z — verified live.
-2ec8e60d-f0c6-456e-971d-735ec9e61e70
+# Updated 2026-06-23T08:41:03Z — verified live.
+9eb22a2c-31dd-4609-9292-2a8556e7a879
