@@ -1,9 +1,9 @@
-curl 'https://claude.hk.cn/api/organizations/b73e2b37-5be1-45a5-beb0-4a1f1faceffc/chat_conversations/fa515f7c-90db-496c-935d-81800c461b30/completion' \
+curl 'https://claude.hk.cn/api/organizations/2ec8e60d-f0c6-456e-971d-735ec9e61e70/chat_conversations/fa515f7c-90db-496c-935d-81800c461b30/completion' \
   -H 'accept: text/event-stream' \
   -H 'accept-language: zh-CN,zh;q=0.9' \
   -H 'anthropic-client-platform: web_claude_ai' \
   -H 'content-type: application/json' \
-  -b 'lastActiveOrg=b73e2b37-5be1-45a5-beb0-4a1f1faceffc; CH-prefers-color-scheme=light; ajs_anonymous_id=claudeai.v1.45779287-353c-4a79-b243-2a21950bf2c4; user-sidebar-visible-on-load=true; user-sidebar-pinned=false; share-session=kb2war01bl8dkqdjg1ri2qtva136uhto; lastActiveOrg=b73e2b37-5be1-45a5-beb0-4a1f1faceffc; _dd_s=aid=1ee01d97-720c-4dcf-b576-165917a53054&rum=2&id=df85da9b-6784-43b1-9fb8-3959962a5097&created=1782179062681&expire=1782180023952' \
+  -b 'lastActiveOrg=2ec8e60d-f0c6-456e-971d-735ec9e61e70; CH-prefers-color-scheme=light; ajs_anonymous_id=claudeai.v1.45779287-353c-4a79-b243-2a21950bf2c4; user-sidebar-visible-on-load=true; user-sidebar-pinned=false; share-session=kb2war01bl8dkqdjg1ri2qtva136uhto; lastActiveOrg=2ec8e60d-f0c6-456e-971d-735ec9e61e70; _dd_s=aid=1ee01d97-720c-4dcf-b576-165917a53054&rum=2&id=df85da9b-6784-43b1-9fb8-3959962a5097&created=1782179062681&expire=1782180023952' \
   -H 'origin: https://claude.hk.cn' \
   -H 'priority: u=1, i' \
   -H 'referer: https://claude.hk.cn/new' \
