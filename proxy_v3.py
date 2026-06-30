@@ -41,9 +41,11 @@ if not ORG:
                 ORG = line; break
 
 O = "https://claude.hk.cn"
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
 HDR = {"Content-Type":"application/json","origin":O,"user-agent":UA,
-       "referer":O+"/","anthropic-client-platform":"web_claude_ai"}
+       "referer":O+"/new","anthropic-client-platform":"web_claude_ai",
+       "accept":"text/event-stream","accept-language":"zh-CN,zh;q=0.9",
+       "sec-fetch-dest":"empty","sec-fetch-mode":"cors","sec-fetch-site":"same-origin"}
 PORT = int(os.environ.get("PROXY_PORT", "19876"))
 
 # --- Shared state ---
@@ -57,22 +59,12 @@ def _req(url, data):
     return r
 
 def mkconv():
-    """Create a new conversation. Returns conv_id or None."""
+    """Pre-allocate a conversation UUID. Actual creation happens on first completion call."""
     global conv_id
-    for attempt in range(5):
-        try:
-            d = json.loads(urllib.request.urlopen(_req(
-                f"{O}/api/organizations/{ORG}/chat_conversations",
-                {"name":"cc-worker","model":"claude-sonnet-4-6","is_temporary":True}
-            ), timeout=30).read().decode())
-            with conv_lock:
-                conv_id = d["uuid"]
-            print(f"[px] conv={conv_id}", flush=True)
-            return conv_id
-        except Exception as e:
-            print(f"[px] mkconv err {attempt}: {e}", flush=True)
-            time.sleep(5 * (attempt + 1))  # 5s, 10s, 15s, 20s, 25s
-    return None
+    with conv_lock:
+        conv_id = str(uuid.uuid4())
+    print(f"[px] conv={conv_id} (pre-allocated)", flush=True)
+    return conv_id
 
 # --- PRE-WARM: create conv at startup ---
 print("[px] pre-warming conv...", flush=True)
@@ -139,13 +131,16 @@ class Handler(http.server.BaseHTTPRequestHandler):
                                 if item.get("type") == "text":
                                     parts.append(item["text"])
                                 elif item.get("type") == "tool_result":
+                                    tool_id = item.get("tool_use_id", "")
                                     ct = item.get("content", "")
+                                    result_text = ""
                                     if isinstance(ct, list):
                                         for ci in ct:
                                             if isinstance(ci, dict) and ci.get("type") == "text":
-                                                parts.append(f"Tool result:\n{ci['text']}")
+                                                result_text += ci["text"]
                                     elif isinstance(ct, str):
-                                        parts.append(f"Tool result:\n{ct}")
+                                        result_text = ct
+                                    parts.append(f"I executed the tool you requested. Here is the output:\n```\n{result_text}\n```\nNow proceed to the next step. Continue using Bash tool for each step.")
                         prompt = "\n".join(parts)
             if not prompt:
                 prompt = "Continue"
@@ -174,14 +169,21 @@ class Handler(http.server.BaseHTTPRequestHandler):
             ai = str(uuid.uuid4())
 
             # Send to claude.hk.cn
+            # First call creates conv; subsequent calls reuse it for agentic loop
             print(f"[px] completion tools={len(cc_tools)}", flush=True)
             resp = None
             for retry in range(8):
-                try:
-                    resp = urllib.request.urlopen(_req(
-                        f"{O}/api/organizations/{ORG}/chat_conversations/{conv_id}/completion",
-                        {"prompt": prompt,
+                hi = str(uuid.uuid4())
+                ai = str(uuid.uuid4())
+                with conv_lock:
+                    use_conv = conv_id if conv_id else str(uuid.uuid4())
+                    is_new = (conv_id is None)
+                    if is_new:
+                        conv_id = use_conv
+
+                payload = {"prompt": prompt,
                          "timezone": "Asia/Shanghai",
+                         "locale": "en-US",
                          "model": "claude-sonnet-4-6",
                          "effort": "high",
                          "thinking_mode": "off",
@@ -191,19 +193,31 @@ class Handler(http.server.BaseHTTPRequestHandler):
                              "assistant_message_uuid": ai
                          },
                          "attachments": [], "files": [],
+                         "sync_sources": [],
                          "rendering_mode": "messages"}
+                if is_new:
+                    payload["create_conversation_params"] = {
+                        "name": "",
+                        "model": "claude-sonnet-4-6",
+                        "include_conversation_preferences": True,
+                        "is_temporary": True
+                    }
+
+                try:
+                    resp = urllib.request.urlopen(_req(
+                        f"{O}/api/organizations/{ORG}/chat_conversations/{use_conv}/completion",
+                        payload
                     ), timeout=300)
-                    print("[px] got resp", flush=True)
+                    print(f"[px] got resp (conv={use_conv[:8]} new={is_new})", flush=True)
                     break
                 except urllib.error.HTTPError as e:
                     print(f"[px] HTTP {e.code} retry {retry+1}/8", flush=True)
                     if e.code in (429, 502, 503):
-                        time.sleep(5 * (retry + 1))  # 5s, 10s, 15s...
-                        if retry >= 4:
-                            # Create fresh conv after many retries
+                        time.sleep(5 * (retry + 1))
+                        if e.code == 429 and retry >= 3:
+                            # Fresh conv on persistent 429
                             with conv_lock:
                                 conv_id = None
-                            mkconv()
                         continue
                     raise
 
