@@ -111,3 +111,32 @@ Claude Code CLI
 - `raw_curl.txt` — cookie 来源（需定期从浏览器更新）
 - `ORG_PIN.txt` — 当前有效的 org UUID
 - `CLAUDE_CODE_V3_GUIDE.md` — 本文档
+
+## 重要: claude.hk.cn 的 tool_use 限制
+
+claude.hk.cn 的 web 版 Claude **不会自动生成 Anthropic API 格式的 tool_use block**。
+它会说"我没有文件系统访问权限"或"我不能执行命令"。
+
+### 解决方案
+
+**方案A (推荐): 不传 tools，让模型返回文本**
+- 在 proxy_v3.py 里 `cc_tools = []` (不传 tools)
+- Claude Code 收到纯文本响应，不会进入 agentic loop
+- 适合: 代码分析、方案设计、文档生成
+
+**方案B: 手动 agentic loop**
+- 管理者用 `claude_hk_chat.sh` 给小弟发分析任务
+- 小弟返回代码/diff
+- 管理者在自己的环境里 apply diff + git push
+- 适合: 需要多轮代码修改的任务
+
+**方案C: 在 ags1 集群上直接跑 Claude Code**
+- 如果 ags1 有网络访问和 npm，直接在上面跑
+- 用 ANTHROPIC_API_KEY (真正的 sk-ant-xxx) 或 ANTHROPIC_BASE_URL 连代理
+- 适合: 完整的 agentic coding
+
+### 当前推荐工作流
+
+1. 管理者 (claude.ai 的 Opus) 做架构设计、审计、配置修改、git push
+2. 小弟 (claude.hk.cn 的 Sonnet) 做代码分析、方案设计、diff 生成
+3. 管理者 apply 小弟的 diff，验证后 push
