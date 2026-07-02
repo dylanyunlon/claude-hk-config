@@ -1,4 +1,1 @@
-# Updated 2026-07-01 — SINGLE SOURCE OF TRUTH for org id.
-# This cookie (nhatdang302995@gmail.com's Org, claude_max) can access EXACTLY ONE org.
-# Do NOT hand-edit to any other value. All dispatchers MUST read this file, not hardcode.
 5637c24a-2651-47bc-adcf-6016ddb0f984

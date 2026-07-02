@@ -1,0 +1,1243 @@
+[px] pre-warming conv...
+[px] conv=9c345d75-d124-42e8-9301-b911abbb3882 (pre-allocated)
+[px] UP :19876 (threaded, conv=9c345d75-d124-42e8-9301-b911abbb3882)
+[px] POST /v1/messages?beta=true
+[px] prompt=272c
+[px] completion tools=0
+[px] POST /v1/messages?beta=true
+[px] prompt=558c
+[px] completion tools=4
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] POST /v1/messages?beta=true
+[px] prompt=272c
+[px] completion tools=0
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] POST /v1/messages?beta=true
+[px] prompt=558c
+[px] completion tools=4
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] POST /v1/messages?beta=true
+[px] prompt=272c
+[px] completion tools=0
+[px] POST /v1/messages?beta=true
+[px] prompt=558c
+[px] completion tools=4
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] POST /v1/messages?beta=true
+[px] prompt=272c
+[px] completion tools=0
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] POST /v1/messages?beta=true
+[px] prompt=558c
+[px] completion tools=4
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] got resp (conv=9c345d75 new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[CRASH Wed Jul  1 10:40:26 UTC 2026]
+[px] pre-warming conv...
+[px] conv=ff60dfcb-5726-4666-a09a-55af389cff73 (pre-allocated)
+[px] UP :19876 (threaded, conv=ff60dfcb-5726-4666-a09a-55af389cff73)
+[px] pre-warming conv...
+[px] conv=9214e308-f2eb-496d-8253-30e173125aae (pre-allocated)
+[px] UP :19876 (threaded, conv=9214e308-f2eb-496d-8253-30e173125aae)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:29 UTC 2026]
+[px] pre-warming conv...
+[px] conv=98cef39a-845c-4764-a377-4a44c661c470 (pre-allocated)
+[px] UP :19876 (threaded, conv=98cef39a-845c-4764-a377-4a44c661c470)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:31 UTC 2026]
+[px] pre-warming conv...
+[px] conv=8d341fc0-ba01-46fd-8e4c-77275f704ce8 (pre-allocated)
+[px] UP :19876 (threaded, conv=8d341fc0-ba01-46fd-8e4c-77275f704ce8)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:33 UTC 2026]
+[px] pre-warming conv...
+[px] conv=3ad9098f-bcbe-4a36-8f08-55718070d9c5 (pre-allocated)
+[px] UP :19876 (threaded, conv=3ad9098f-bcbe-4a36-8f08-55718070d9c5)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:35 UTC 2026]
+[px] pre-warming conv...
+[px] conv=87eeae99-178f-419c-accd-2d2a9fe29dd9 (pre-allocated)
+[px] UP :19876 (threaded, conv=87eeae99-178f-419c-accd-2d2a9fe29dd9)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:37 UTC 2026]
+[px] pre-warming conv...
+[px] conv=e8795b4d-90a9-4085-b3bb-c79d04877abf (pre-allocated)
+[px] UP :19876 (threaded, conv=e8795b4d-90a9-4085-b3bb-c79d04877abf)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:39 UTC 2026]
+[px] pre-warming conv...
+[px] conv=4d2d563d-73af-4d47-b2a7-eb7e2f11af04 (pre-allocated)
+[px] UP :19876 (threaded, conv=4d2d563d-73af-4d47-b2a7-eb7e2f11af04)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:41 UTC 2026]
+[px] pre-warming conv...
+[px] conv=8a63ff49-9c58-4fc7-9ec1-d40b6649d5d9 (pre-allocated)
+[px] UP :19876 (threaded, conv=8a63ff49-9c58-4fc7-9ec1-d40b6649d5d9)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:44 UTC 2026]
+[px] pre-warming conv...
+[px] conv=577bf7b2-3321-49db-9c76-0f89460251af (pre-allocated)
+[px] UP :19876 (threaded, conv=577bf7b2-3321-49db-9c76-0f89460251af)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:46 UTC 2026]
+[px] pre-warming conv...
+[px] conv=1f2770cd-069a-4a25-877b-79ec747b4adf (pre-allocated)
+[px] UP :19876 (threaded, conv=1f2770cd-069a-4a25-877b-79ec747b4adf)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:48 UTC 2026]
+[px] pre-warming conv...
+[px] conv=bc49339c-c5d8-4b85-bc01-95fbe8c2531b (pre-allocated)
+[px] UP :19876 (threaded, conv=bc49339c-c5d8-4b85-bc01-95fbe8c2531b)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:50 UTC 2026]
+[px] pre-warming conv...
+[px] conv=62088ed0-8595-4d38-8f40-606ea2f3f0d5 (pre-allocated)
+[px] UP :19876 (threaded, conv=62088ed0-8595-4d38-8f40-606ea2f3f0d5)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:52 UTC 2026]
+[px] pre-warming conv...
+[px] conv=fbb78678-e394-4257-b879-c3dd34adbb14 (pre-allocated)
+[px] UP :19876 (threaded, conv=fbb78678-e394-4257-b879-c3dd34adbb14)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:54 UTC 2026]
+[px] pre-warming conv...
+[px] conv=9ba02cbd-c114-4e56-b3ea-04f4c7ecbdfa (pre-allocated)
+[px] UP :19876 (threaded, conv=9ba02cbd-c114-4e56-b3ea-04f4c7ecbdfa)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:56 UTC 2026]
+[px] pre-warming conv...
+[px] conv=bd6f1fa9-d3e3-43ec-921a-fd3d12819e49 (pre-allocated)
+[px] UP :19876 (threaded, conv=bd6f1fa9-d3e3-43ec-921a-fd3d12819e49)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:40:58 UTC 2026]
+[px] pre-warming conv...
+[px] conv=1dfdf8e3-4817-44ac-94dc-fbf510835a45 (pre-allocated)
+[px] UP :19876 (threaded, conv=1dfdf8e3-4817-44ac-94dc-fbf510835a45)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:01 UTC 2026]
+[px] pre-warming conv...
+[px] conv=0cb31949-bf15-4ae3-899a-905ba559a707 (pre-allocated)
+[px] UP :19876 (threaded, conv=0cb31949-bf15-4ae3-899a-905ba559a707)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:03 UTC 2026]
+[px] pre-warming conv...
+[px] conv=a8e9e729-4194-4e73-8ff4-a36f480c71c4 (pre-allocated)
+[px] UP :19876 (threaded, conv=a8e9e729-4194-4e73-8ff4-a36f480c71c4)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:05 UTC 2026]
+[px] pre-warming conv...
+[px] conv=69b9534c-447d-47bd-a35a-5fe71965b968 (pre-allocated)
+[px] UP :19876 (threaded, conv=69b9534c-447d-47bd-a35a-5fe71965b968)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:07 UTC 2026]
+[px] pre-warming conv...
+[px] conv=b7265d89-adea-4565-98c9-eb6a7b7e7693 (pre-allocated)
+[px] UP :19876 (threaded, conv=b7265d89-adea-4565-98c9-eb6a7b7e7693)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:09 UTC 2026]
+[px] pre-warming conv...
+[px] conv=5e9fd71b-d31c-44e7-9e6c-bce930c32fba (pre-allocated)
+[px] UP :19876 (threaded, conv=5e9fd71b-d31c-44e7-9e6c-bce930c32fba)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:11 UTC 2026]
+[px] pre-warming conv...
+[px] conv=19a78fcf-9923-4d35-b3ed-52cbfdf78cd6 (pre-allocated)
+[px] UP :19876 (threaded, conv=19a78fcf-9923-4d35-b3ed-52cbfdf78cd6)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:13 UTC 2026]
+[px] pre-warming conv...
+[px] conv=2d8bc5ca-8467-4401-a948-7f1707b05859 (pre-allocated)
+[px] UP :19876 (threaded, conv=2d8bc5ca-8467-4401-a948-7f1707b05859)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:16 UTC 2026]
+[px] pre-warming conv...
+[px] conv=f356e561-a3a9-458b-be27-74457dabda34 (pre-allocated)
+[px] UP :19876 (threaded, conv=f356e561-a3a9-458b-be27-74457dabda34)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:18 UTC 2026]
+[px] pre-warming conv...
+[px] conv=e281641c-026d-4574-bb84-2bc63678c4aa (pre-allocated)
+[px] UP :19876 (threaded, conv=e281641c-026d-4574-bb84-2bc63678c4aa)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:20 UTC 2026]
+[px] pre-warming conv...
+[px] conv=098b841b-a108-48dc-b295-a4bb92a831a2 (pre-allocated)
+[px] UP :19876 (threaded, conv=098b841b-a108-48dc-b295-a4bb92a831a2)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:22 UTC 2026]
+[px] pre-warming conv...
+[px] conv=524d0db1-517d-4986-aa3a-4b71efca6e75 (pre-allocated)
+[px] UP :19876 (threaded, conv=524d0db1-517d-4986-aa3a-4b71efca6e75)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:24 UTC 2026]
+[px] pre-warming conv...
+[px] conv=cde1964c-98c2-4dba-896d-78086a3343af (pre-allocated)
+[px] UP :19876 (threaded, conv=cde1964c-98c2-4dba-896d-78086a3343af)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:26 UTC 2026]
+[px] pre-warming conv...
+[px] conv=c18d22cf-98f2-4c7e-9838-f84e59a5cfa7 (pre-allocated)
+[px] UP :19876 (threaded, conv=c18d22cf-98f2-4c7e-9838-f84e59a5cfa7)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:28 UTC 2026]
+[px] pre-warming conv...
+[px] conv=3816d882-4fd5-4fe9-b7b4-e810471d974b (pre-allocated)
+[px] UP :19876 (threaded, conv=3816d882-4fd5-4fe9-b7b4-e810471d974b)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:31 UTC 2026]
+[px] pre-warming conv...
+[px] conv=bb74359b-4fa2-4fe9-a851-9ee6391ce0ce (pre-allocated)
+[px] UP :19876 (threaded, conv=bb74359b-4fa2-4fe9-a851-9ee6391ce0ce)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:33 UTC 2026]
+[px] pre-warming conv...
+[px] conv=a78b6609-eda2-4d45-8791-3680461d79c4 (pre-allocated)
+[px] UP :19876 (threaded, conv=a78b6609-eda2-4d45-8791-3680461d79c4)
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 326, in <module>
+    ThreadedServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[CRASH Wed Jul  1 10:41:35 UTC 2026]
+[CRASH Wed Jul  1 10:41:35 UTC 2026]
+[px] pre-warming conv...
+[px] conv=9bad7c4c-ab58-4176-9a6b-6b80b7f893c2 (pre-allocated)
+[px] UP :19876 (threaded, conv=9bad7c4c-ab58-4176-9a6b-6b80b7f893c2)
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 404 retry 2/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 404 retry 2/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 429 retry 2/8
+[px] HTTP 404 retry 3/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=505c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 404 retry 2/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 429 retry 2/8
+[px] HTTP 404 retry 3/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 404 retry 2/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[CRASH Wed Jul  1 10:53:06 UTC 2026]
+[px] pre-warming conv...
+[px] conv=2574f857-a218-47a4-a4e1-c05f3031e3e5 (pre-allocated)
+[px] UP :19876 (threaded, conv=2574f857-a218-47a4-a4e1-c05f3031e3e5)
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 429 retry 2/8
+[px] HTTP 404 retry 3/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+[px] ERR: HTTP Error 404: Not Found
+[CRASH Wed Jul  1 10:55:49 UTC 2026]
+[px] pre-warming conv...
+[px] conv=9bad49b3-c387-43aa-b057-155cebabdd8e (pre-allocated)
+[px] UP :19876 (threaded, conv=9bad49b3-c387-43aa-b057-155cebabdd8e)
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+[px] HTTP 429 retry 2/8
+[px] HTTP 429 retry 3/8
+[px] HTTP 404 retry 4/8
+[CRASH Wed Jul  1 10:57:21 UTC 2026]
+[px] pre-warming conv...
+[px] conv=fdb1e219-1b92-4f6f-8924-161b0aeedbd9 (pre-allocated)
+[px] UP :19876 (threaded, conv=fdb1e219-1b92-4f6f-8924-161b0aeedbd9)
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[px] got resp (conv=ef759ec5 new=True)
+[px] blocks=1 tool_use=True
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 312, in do_POST
+    self.wfile.write(rb)
+  File "/usr/lib/python3.12/socketserver.py", line 840, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+[px] ERR: [Errno 32] Broken pipe
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 1392, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 1348, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 1448, in getresponse
+    response.begin()
+  File "/usr/lib/python3.12/http/client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ssl.py", line 1252, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ssl.py", line 1104, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+[px] ERR: The read operation timed out
+[px] POST /v1/messages?beta=true
+[px] prompt=471c
+[px] completion tools=4
+[CRASH Wed Jul  1 11:03:48 UTC 2026]
+[px] pre-warming conv...
+[px] conv=599ded6d-e6fc-4c82-b682-447184f1b6d1 (pre-allocated)
+[px] UP :19876 (threaded, conv=599ded6d-e6fc-4c82-b682-447184f1b6d1)
+[px] POST /v1/messages?beta=true
+[px] prompt=459c
+[px] completion tools=4
+[px] HTTP 404 retry 1/8
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 1392, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 1348, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 1448, in getresponse
+    response.begin()
+  File "/usr/lib/python3.12/http/client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ssl.py", line 1252, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ssl.py", line 1104, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+[px] ERR: The read operation timed out
+[px] POST /v1/messages?beta=true
+[px] prompt=459c
+[px] completion tools=4
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 207, in do_POST
+    resp = urllib.request.urlopen(_req(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 1392, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 1348, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 1448, in getresponse
+    response.begin()
+  File "/usr/lib/python3.12/http/client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/http/client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ssl.py", line 1252, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ssl.py", line 1104, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+[px] ERR: The read operation timed out
+[px] POST /v1/messages?beta=true
+[px] prompt=459c
+[px] completion tools=4
+[px] got resp (conv=7928058a new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[px] POST /v1/messages?beta=true
+[px] prompt=459c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] got resp (conv=7928058a new=False)
+[px] blocks=0 tool_use=False
+[px] sent
+[CRASH Thu Jul  2 02:06:29 UTC 2026]
+[px] pre-warming conv...
+[px] conv=cf6f69a8-ad25-48d4-a5b3-8ad2766dd786 (pre-allocated)
+[px] UP :19876 (threaded, conv=cf6f69a8-ad25-48d4-a5b3-8ad2766dd786)
+[px] POST /v1/messages?beta=true
+[px] prompt=459c
+[px] completion tools=4
+[px] HTTP 429 retry 1/8
+[px] HTTP 429 retry 2/8
+[px] HTTP 429 retry 3/8
+[px] HTTP 429 retry 4/8
+[px] HTTP 429 retry 5/8
+[px] HTTP 429 retry 6/8
+[px] HTTP 429 retry 7/8
+[px] got resp (conv=e638887b new=True)
+[px] blocks=2 tool_use=True
+Traceback (most recent call last):
+  File "/home/0627/claude-hk-config/proxy_v3.py", line 312, in do_POST
+    self.wfile.write(rb)
+  File "/usr/lib/python3.12/socketserver.py", line 840, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+[px] ERR: [Errno 32] Broken pipe

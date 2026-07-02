@@ -212,8 +212,13 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     break
                 except urllib.error.HTTPError as e:
                     print(f"[px] HTTP {e.code} retry {retry+1}/8", flush=True)
+                    if e.code == 404:
+                        with conv_lock:
+                            conv_id = None
+                        time.sleep(2)
+                        continue
                     if e.code in (429, 502, 503):
-                        time.sleep(5 * (retry + 1))
+                        time.sleep(2 * (retry + 1))
                         if e.code == 429 and retry >= 3:
                             # Fresh conv on persistent 429
                             with conv_lock:
