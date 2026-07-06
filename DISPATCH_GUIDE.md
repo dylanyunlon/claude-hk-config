@@ -5,108 +5,152 @@ and all `proxy_v2.py` / `proxy_v3.py` variants. **Do not create v2/v3/vN files.*
 
 ## The sub-Claude has a FULL bash code-execution container
 
-This is the single most important fact and the reason past dispatches failed.
-
-When you send a completion request with `"tools":[{"type":"repl_v0","name":"repl"}]`,
+When you send a completion request with the tools from `raw_curl.txt`,
 the server gives the sub-Claude a **real Linux container with `bash_tool`** — not a
-sandboxed calculator, not a widget renderer. Verified 2026-07-01:
+sandboxed calculator, not a widget renderer.
 
-- The sub-Claude fires `bash_tool` (confirmed in the SSE stream), not `repl`.
-- It can `git clone`, run multi-step shell pipelines, install packages, edit files,
-  and make **multiple tool calls per turn** (verified: 3 tool calls, cloned all 4209
-  files of Neuron_SP, listed real directory trees, read git log).
+- The sub-Claude can `git clone`, run multi-step shell pipelines, install packages,
+  edit files, and make **multiple tool calls per turn**.
 - It runs its own **agentic loop** inside its container.
 
-**Therefore: the manager must NEVER ask the sub-Claude to hand a `bash_tool` request
-back up to the manager.** The sub-Claude runs code itself. The manager's job is to
-define the task and review the artifact — not to be the sub-Claude's terminal.
+**The manager must NEVER be the sub-Claude's terminal.** The sub-Claude runs code
+itself. The manager defines the task and reviews the artifact.
 
-## The V1 dispatch pattern (this is correct — use it)
+## Request format — mirror raw_curl.txt exactly
+
+The completion request body must match `raw_curl.txt` exactly: full tools list
+(including `repl_v0`, `web_search`, `artifacts`, visualizer tools), all headers
+(`sec-ch-ua`, `sec-fetch-*`, etc.), `locale`, `sync_sources`,
+`create_conversation_params`. Do NOT simplify the request into a minimal subset —
+the server uses these fields to determine what capabilities the sub-Claude gets.
+
+Model selection:
+- `claude-opus-4-6` for complex architectural tasks (subsystem design, kernel writing)
+- `claude-sonnet-4-6` for implementation tasks (module migration, bug fixes)
+
+## Traceability: CCCL-grade issue → commit → PR linkage
+
+**This is the #1 process rule.** Every line of code must trace back to a design
+decision. Reference: NVIDIA/cccl#9656 — 40 lines with full issue/PR/API-surface
+traceability beats 2357 lines of unlinked kernel code.
+
+### Before dispatching any task:
+
+1. **Create a GitHub issue** in `dylanyunlon/Neuron_SP` describing the problem and
+   the design approach. Include:
+   - API surface inventory (what interfaces are touched)
+   - Gap analysis (what's missing vs what exists)
+   - Before/after code sketch (even pseudocode)
+   - Links to reference implementations (Megatron commit hashes, CCCL PRs, etc.)
+
+2. **Add the issue to Project #2** (`Neuron_SP – Current Sprint`) with all fields:
+   Status, Priority, Module, Claude, Sprint, Language.
+
+3. **Include the issue number in the dispatch prompt** so the sub-Claude references
+   it in every commit.
+
+### Every sub-Claude commit MUST follow this format:
 
 ```
-Manager (this Claude)          Sub-Claude (Sonnet 4.6 on claude.hk.cn)
-─────────────────────          ────────────────────────────────────────
-1. Define task prompt    ──▶
-                                2. git clone the repo in its container
-                                3. Explore, read module history, iterate
-                                4. AGENTIC LOOP (many turns) until subsystem works
-                                5. Output: real code / analysis / artifacts
-6. Review the output     ◀──
-7. git push (manager only)
+<type>(<scope>): <description> — addresses #<issue_number>
+
+<body explaining the design decision, not just what changed>
+
+Refs: <Megatron commit hash>, <CCCL issue>, <upstream PR> if applicable
 ```
 
-The manager defines *what* and *why*. The sub-Claude does *how*, in its own container.
-The manager reviews and is the ONLY one who pushes to `main`.
+Types: `feat`, `fix`, `perf`, `refactor`, `test`, `bench`, `docs`
+Scopes: `parallel_state`, `distributed`, `optimizer`, `transformer`,
+        `pipeline_parallel`, `tensor_parallel`, `hetero_reduce`, `autosp`,
+        `desloc_engine`, `csrc`
 
-## How to write a task prompt that produces WORKING code, not dead code
+Example:
+```
+feat(hetero_reduce): warp-cooperative reduction kernel — addresses #21
 
-Past failure: "generate one `hetero_xxx.py` per Megatron commit, write 'mirrors X', push."
-This produced 150,264 lines of dead code (122 files never imported) because the success
-criterion was *file existence*, not *being called by training*.
+Replace per-thread atomicAdd with warp-level __shfl_down + single-lane
+atomic. Reduces global memory traffic by 32x for the gradient reduce-
+scatter hot path on PCIe topology (A6000 ↔ H100 cross-NUMA).
 
-Every task prompt MUST:
+Design: CCCL cub::WarpReduce pattern adapted for heterogeneous SM
+(SM8.6 uses 32-wide warps, SM9.0 identical, SM12.0 TBD).
 
-1. **Give a clone command, not a wall of text.** First line: the `git clone`. Let the
-   sub-Claude read the code itself. Do not paste large excerpts.
-2. **Define the import contract.** State exactly which existing training entrypoint
-   (`run_pretrain.py`, `desloc_engine.py`, an AutoSP or DES-LOC hook) must `import` and
-   `call` the new subsystem. "It must be imported and invoked by X" is the success test.
-3. **Assign a whole subsystem, not one commit.** "Read module M from its first commit to
-   HEAD, understand its evolution, produce a complete importable subsystem (multiple files
-   with real software architecture, not one wired file)."
-4. **Demand a long agentic loop.** "Iterate in your container until `python -c 'import ...'`
-   succeeds and a smoke test passes. Do not stop at a single file."
-5. **Forbid mechanical mirroring.** "Do NOT generate one-file-per-commit stubs. Do NOT
-   write commit messages that just say 'mirrors X'. Reuse and adapt real logic."
-6. **No new branches, no v2/v3 suffixes.** "Work on `main`. Do not create branches or
-   files with v2/v3/vN or port suffixes." (Applies to the sub-Claude too.)
+Refs: Megatron-LM 5486c69c6 (timing debug), CCCL cub/warp/specializations
+Benchmark: bench_hetero_reduce.py — 2.3x faster than baseline NCCL
+allreduce for <1MB payloads on PCIe Gen4 x16.
+```
+
+### Sub-Claude must NOT:
+- Push commits with messages like "mirrors X", "port of Y", "stub for Z"
+- Create files without linking them to an issue
+- Write code without a benchmark or smoke test that proves it works
+- Use `git push origin main` directly — create a branch, push, open a PR
+  that references the issue. Manager reviews and merges.
+
+### PR workflow (replaces direct push to main):
+
+```
+Sub-Claude                              Manager
+──────────                              ───────
+1. git checkout -b fix/issue-81-sp-a2a
+2. Write code, test, commit
+3. git push origin fix/issue-81-sp-a2a
+4. Create PR via GitHub API:            5. Review PR in Project board
+   POST /repos/{owner}/{repo}/pulls     6. Merge if tests pass
+   title: "fix(autosp): ... — fixes #81"
+   body: design rationale + benchmark
+```
+
+## The dispatch prompt template
+
+Every task prompt sent to a sub-Claude MUST include these sections:
+
+```
+## Identity
+You are Claude-{letter}, working on Neuron_SP issue #{N}: {title}
+
+## Setup
+git clone https://github.com/dylanyunlon/Neuron_SP.git && cd Neuron_SP
+
+## Issue context
+{Copy the issue body here, or link to it}
+
+## Your deliverables
+1. {Specific files to create/modify}
+2. {Import contract: "from X import Y must work"}
+3. {Benchmark/test: "python bench_Z.py must show >2x improvement"}
+
+## Workflow rules
+- Branch: git checkout -b {type}/issue-{N}-{short-desc}
+- Every commit: git commit -m "{type}({scope}): {desc} — addresses #{N}"
+- Push branch: git push origin {branch-name}
+  Token: <GH_TOKEN from ORG_PIN or env>
+- Create PR via:
+  curl -X POST https://api.github.com/repos/dylanyunlon/Neuron_SP/pulls \
+    -H "Authorization: token <GH_TOKEN from ORG_PIN or env>" \
+    -d '{"title":"...","head":"{branch}","base":"main","body":"..."}'
+- Do NOT push to main directly
+- Do NOT create v2/v3 suffixed files
+- Do NOT write stub/placeholder code — every function must have a real body
+
+## Design references
+{Links to Megatron commits, CCCL issues, upstream PRs that inform the design}
+
+## Success criteria
+{Exact commands that must pass before you consider the task done}
+```
 
 ## Org ID — read `ORG_PIN.txt`, never hardcode
 
-This cookie can access **exactly one** org. `ORG_PIN.txt` is the single source of truth.
-Hardcoding a different org id (the old `bc451b9e...` was stale) is what caused
-"cannot create conversation" and colliding-task confusion. All dispatchers read the file.
-
-## Verified-correct request format
-
-Extract from `raw_curl.txt`: `cookie` (via `-b '...'`) and `user-agent`.
-Org id: from `ORG_PIN.txt`. Model: `claude-sonnet-4-6` for sub-Claudes.
-
-Create conversation:
-```
-POST /api/organizations/{ORG}/chat_conversations
-  --data-raw {"name":"...","model":"claude-sonnet-4-6","is_temporary":false}
-  → returns {"uuid": CONV_ID}
-```
-
-Completion (streams SSE):
-```
-POST /api/organizations/{ORG}/chat_conversations/{CONV_ID}/completion
-Headers: accept: text/event-stream, content-type: application/json,
-         origin: https://claude.hk.cn, referer: https://claude.hk.cn/,
-         anthropic-client-platform: web_claude_ai, user-agent: <from raw_curl>, -b <cookie>
-Body:
-  {
-    "prompt": "<task>",
-    "timezone": "Asia/Shanghai",
-    "model": "claude-sonnet-4-6",
-    "effort": "medium",
-    "thinking_mode": "off",
-    "tools": [{"type":"repl_v0","name":"repl"}],   ← gives the sub-Claude bash
-    "turn_message_uuids": {"human_message_uuid": <uuid4>, "assistant_message_uuid": <uuid4>},
-    "attachments": [], "files": [], "rendering_mode": "messages"
-  }
-```
-
-Parse SSE lines starting `data:`:
-- `content_block_start` with `content_block.type == "tool_use"` → sub-Claude is running code
-- `content_block_delta` → `delta.text` is the streamed answer
-- `message_stop` → done
-
-Continue a truncated turn: reuse the same `CONV_ID`, send prompt `"Continue"`.
+The cookie can access exactly one org. `ORG_PIN.txt` is the single source of truth.
 
 ## One conversation per task
 
-Each dispatched module = its own new conversation (own CONV_ID). Do not reuse one
-conversation across unrelated modules — that is what tangled prior runs. Multiple
-sub-Claudes run in parallel, each in its own conversation, each on `main`.
+Each dispatched issue = its own new conversation. Do not reuse conversations
+across unrelated issues.
+
+## Rate limits
+
+The API has weekly rate limits. 429 errors are normal — wait and retry.
+Do not panic or rewrite the dispatch script. The manager reports the wait
+to the user and queues tasks for when quota refreshes.
