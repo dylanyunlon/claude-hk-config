@@ -84,22 +84,23 @@ allreduce for <1MB payloads on PCIe Gen4 x16.
 - Push commits with messages like "mirrors X", "port of Y", "stub for Z"
 - Create files without linking them to an issue
 - Write code without a benchmark or smoke test that proves it works
-- Use `git push origin main` directly — create a branch, push, open a PR
-  that references the issue. Manager reviews and merges.
+- **CREATE BRANCHES** — push to main directly, always
+- Create v2/v3/port/alt suffixed files
 
-### PR workflow (replaces direct push to main):
+### Workflow (direct push to main):
 
 ```
-Sub-Claude                              Manager
-──────────                              ───────
-1. git checkout -b fix/issue-81-sp-a2a
-2. Write code, test, commit
-3. git push origin fix/issue-81-sp-a2a
-4. Create PR via GitHub API:            5. Review PR in Project board
-   POST /repos/{owner}/{repo}/pulls     6. Merge if tests pass
-   title: "fix(autosp): ... — fixes #81"
-   body: design rationale + benchmark
+Sub-Claude
+──────────
+1. git clone + set token
+2. Write code, test, commit (--signoff)
+3. git pull --rebase origin main
+4. git push origin main
 ```
+
+**NEVER create branches.** All 18 feature branches created by previous workers
+were deleted because they caused merge conflicts and fragmented development.
+The iron rule: one branch (main), all commits go there.
 
 ## The dispatch prompt template
 
